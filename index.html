@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <title>Chessland</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      table {
+        border-collapse: collapse;
+        border: 1px solid #ccc;
+      }
+      td {
+        display: inline-block;
+        height: 100px;
+        width: 100px;
+        padding: 10px;
+        text-align: center;
+      }
+      td:hover {
+        border: 5px solid #fc0;
+        cursor: pointer;
+      }
+      tr:nth-of-type(2n+1) td:nth-of-type(2n),
+      tr:nth-of-type(2n) td:nth-of-type(2n+1) {
+        background-color: #333;
+        color: #f0f0f0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="chessboard"></div>
+    <script>
+      function newCell(r,c) {
+        return  "<td class='row" + r + " col" + c + "' data-row='" + r + "' data-col='" + c + "'></td>";
+      }
+
+      let board = Array(8).fill(Array(8));
+      let html = "<table>";
+      for (var r = 0; r < board.length; r++) {
+        html += "<tr>";
+        for (var c = 0; c < board[r].length; c++) {
+          html += newCell(r,c);
+        }
+        html += "</tr>";
+      }
+      html += "</table>";
+      document.getElementById("chessboard").innerHTML = html;
+
+      var td = [...document.getElementsByTagName("td")];
+      td.forEach(t => t.addEventListener("click", function() {
+        if (t.classList.contains("selected")) {
+          t.classList.remove("selected");
+          t.textContent = "";
+        }
+        else {
+          t.classList.add("selected");
+          t.textContent = "selected";
+        }
+      }, false));
+    </script>
+  </body>
+</html>
